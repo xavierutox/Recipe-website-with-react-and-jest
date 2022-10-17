@@ -112,7 +112,7 @@ export default function CardComponent() {
       </Collapse>
       <Collapse in={expanded2} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Ingredientes:</Typography>
+          <Typography paragraph>Receta:</Typography>
           <Typography paragraph>
             <List sx={{ listStyleType: 'decimal', pl: 4 }}>
               <ListItem sx={{ display: 'list-item' }}>
