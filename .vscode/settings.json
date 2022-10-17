@@ -1,5 +1,4 @@
 {
-    "hide-files.files": [],
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,
@@ -11,5 +10,6 @@
         "**/.project": true,
         "**/.settings": true,
         "**/.factorypath": true
-    }
+    },
+    "hide-files.files": []
 }
