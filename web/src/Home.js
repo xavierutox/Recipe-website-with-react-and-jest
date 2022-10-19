@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Paper, Container, Divider, Grid } from "@mui/material";
-import { useEffect, useState } from "react";
 import CardComponent from "./CardComponent";
+import {recipes} from './Mocks/recipes.js';
 
 export default function Entrypoint() {
   return (
@@ -12,12 +12,11 @@ export default function Entrypoint() {
           <Divider />
           <Divider>Recetas</Divider>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6} md={4}>
-              <CardComponent />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <CardComponent />
-            </Grid>
+            {recipes.recipes.map((recipe) => (
+              <Grid item xs={12} sm={6} md={6} lg={4}>
+                <CardComponent recipe={recipe} />
+              </Grid>
+            ))}
           </Grid>
         </Paper>
       </Container>
