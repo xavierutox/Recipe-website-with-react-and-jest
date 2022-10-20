@@ -39,7 +39,8 @@ export default function CardComponent(props) {
   const recipe = props.recipe;
 
   return (
-    <Card >
+    <Card id="Card">
+        {/* Cambiar la X por un botón de Delete*/}
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -51,8 +52,11 @@ export default function CardComponent(props) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={recipe.Title}
+        title={<Typography variant="subtitle1"> {recipe.Title} </Typography>}
         subheader={recipe.Date}
+        sx = {{
+            fontSize: 1,
+        }}
       />
       <CardMedia
         component="img"

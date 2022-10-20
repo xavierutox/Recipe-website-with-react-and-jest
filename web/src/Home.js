@@ -105,176 +105,199 @@ class Home extends Component {
     const open = this.state.open;
     return (
       <>
-        <Container>
-          <Modal
-            open={open}
-            onClose={this.handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Añadir receta
-              </Typography>
-                <Grid
-                  container
-                  spacing={2}
-                  justify="center"
-                  sx={{ paddingTop: 2 }}
-                >
-                  <Grid item xs={12} justify="center">
-                    <TextField
-                      fullWidth
-                      id="titulo"
-                      label="Titulo"
-                      variant="outlined"
-                      value={this.state.titulo}
-                      onChange={(e) => this.handleFieldChange(e)}
-                    />
-                  </Grid>
-                  <Grid item xs={16} justify="center">
-                    <TextField
-                      fullWidth
-                      id="descripcion"
-                      label="Descripcion"
-                      variant="outlined"
-                      value={this.state.descripcion}
-                      onChange={(e) => this.handleFieldChange(e)}
-                    />
-                  </Grid>
-                  <Grid item xs={16} justify="center">
-                    <TextField
-                      fullWidth
-                      id="image"
-                      label="Imagen"
-                      variant="outlined"
-                      value={this.state.image}
-                      onChange={(e) => this.handleFieldChange(e)}
-                    />
-                  </Grid>
-                  <Grid item xs={12} justify="center">
-                    <Divider> Ingredientes </Divider>
-                  </Grid>
-                  {this.state.ingredientes.map((ingrediente, i) => {
-                    return (
-                      <>
-                        <Grid item xs={10} justify="center">
-                          <TextField
-                            id={i}
-                            name="ingrediente"
-                            label="Ingrediente"
-                            variant="outlined"
-                            value={ingrediente.ingrediente}
-                            onChange={(e) => this.handleFieldChange(e)}
-                          />
-                        </Grid>
-                        <Grid item xs={2}>
-                          <Button
-                            fullWidth
-                            variant="outlined"
-                            color="success"
-                            type="submit"
-                            disabled={
-                              this.state.ingredientes.length > 1 &&
-                              i < this.state.ingredientes.length - 1
-                            }
-                            onClick={(e) => this.addIngredient(e)}
-                          >
-                            +
-                          </Button>
-                          <Button
-                            fullWidth
-                            variant="outlined"
-                            color="error"
-                            type="submit"
-                            disabled={
-                              i < this.state.ingredientes.length - 1 ||
-                              this.state.ingredientes.length === 1
-                            }
-                            onClick={(e) => this.removeIngredient(e)}
-                          >
-                            -
-                          </Button>
-                        </Grid>
-                      </>
-                    );
-                  })}
-                  <Grid item xs={12} justify="center">
-                    <Divider> Pasos </Divider>
-                  </Grid>
-                  {this.state.pasos.map((paso, i) => {
-                    return (
-                      <>
-                        <Grid item xs={10} justify="center">
-                          <TextField
-                            id={i}
-                            name="paso"
-                            label="paso"
-                            variant="outlined"
-                            value={paso.paso}
-                            onChange={(e) => this.handleFieldChange(e)}
-                          />
-                        </Grid>
-                        <Grid item xs={2}>
-                          <Button
-                            fullWidth
-                            variant="outlined"
-                            color="success"
-                            type="submit"
-                            disabled={
-                              this.state.pasos.length > 1 &&
-                              i < this.state.pasos.length - 1
-                            }
-                            onClick={(e) => this.addStep(e)}
-                          >
-                            +
-                          </Button>
-                          <Button
-                            fullWidth
-                            variant="outlined"
-                            color="error"
-                            type="submit"
-                            disabled={
-                              i < this.state.pasos.length - 1 ||
-                              this.state.pasos.length === 1
-                            }
-                            onClick={(e) => this.removeStep(e)}
-                          >
-                            -
-                          </Button>
-                        </Grid>
-                      </>
-                    );
-                  })}
-                  <Grid item xs={16}>
-                    <Button fullWidth variant="contained" type="submit" onClick={(e) => this.handleSubmit(e)}>
-                      Añadir receta
-                    </Button>
-                  </Grid>
-                </Grid>
-            </Box>
-          </Modal>
-          <Paper elevation={1}>
-            <h1 style={{ textAlign: "center" }}>Recetas el tio react</h1>
-            <Divider />
-            <Button
-              variant="outlined"
-              onClick={this.handleOpen}
-              endIcon={<PlaylistAddIcon />}
-              sx={{ float: "right", marginTop: "2px" }}
+        <Container maxWidth id="body">
+            <Container>
+                <Box id="Title">
+                    Mowen
+                </Box>
+            <Modal
+                open={open}
+                onClose={this.handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
             >
-              Añadir receta
-            </Button>
-            <Divider sx={{ marginTop: "2.45em" }}>Recetas</Divider>
-            <Grid container spacing={2}>
-              {recipes.recipes.map((recipe) => (
-                <Grid item xs={12} sm={6} md={6} lg={4} >
-                  <CardComponent recipe={recipe} />
+                <Box sx={style}>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                    Añadir receta
+                </Typography>
+                    <Grid
+                    container
+                    spacing={2}
+                    justify="center"
+                    sx={{ paddingTop: 2 }}
+                    >
+                    <Grid item xs={12} justify="center">
+                        <TextField
+                        fullWidth
+                        id="titulo"
+                        label="Titulo"
+                        variant="outlined"
+                        value={this.state.titulo}
+                        onChange={(e) => this.handleFieldChange(e)}
+                        />
+                    </Grid>
+                    <Grid item xs={16} justify="center">
+                        <TextField
+                        fullWidth
+                        id="descripcion"
+                        label="Descripcion"
+                        variant="outlined"
+                        value={this.state.descripcion}
+                        onChange={(e) => this.handleFieldChange(e)}
+                        />
+                    </Grid>
+                    <Grid item xs={16} justify="center">
+                        <TextField
+                        fullWidth
+                        id="image"
+                        label="Imagen"
+                        variant="outlined"
+                        value={this.state.image}
+                        onChange={(e) => this.handleFieldChange(e)}
+                        />
+                    </Grid>
+                    <Grid item xs={12} justify="center">
+                        <Divider> Ingredientes </Divider>
+                    </Grid>
+                    {this.state.ingredientes.map((ingrediente, i) => {
+                        return (
+                        <>
+                            <Grid item xs={10} justify="center">
+                            <TextField
+                                id={i}
+                                name="ingrediente"
+                                label="Ingrediente"
+                                variant="outlined"
+                                value={ingrediente.ingrediente}
+                                onChange={(e) => this.handleFieldChange(e)}
+                            />
+                            </Grid>
+                            <Grid item xs={2}>
+                            <Button
+                                fullWidth
+                                variant="outlined"
+                                color="success"
+                                type="submit"
+                                disabled={
+                                this.state.ingredientes.length > 1 &&
+                                i < this.state.ingredientes.length - 1
+                                }
+                                onClick={(e) => this.addIngredient(e)}
+                            >
+                                +
+                            </Button>
+                            <Button
+                                fullWidth
+                                variant="outlined"
+                                color="error"
+                                type="submit"
+                                disabled={
+                                i < this.state.ingredientes.length - 1 ||
+                                this.state.ingredientes.length === 1
+                                }
+                                onClick={(e) => this.removeIngredient(e)}
+                            >
+                                -
+                            </Button>
+                            </Grid>
+                        </>
+                        );
+                    })}
+                    <Grid item xs={12} justify="center">
+                        <Divider> Pasos </Divider>
+                    </Grid>
+                    {this.state.pasos.map((paso, i) => {
+                        return (
+                        <>
+                            <Grid item xs={10} justify="center">
+                            <TextField
+                                id={i}
+                                name="paso"
+                                label="paso"
+                                variant="outlined"
+                                value={paso.paso}
+                                onChange={(e) => this.handleFieldChange(e)}
+                            />
+                            </Grid>
+                            <Grid item xs={2}>
+                            <Button
+                                fullWidth
+                                variant="outlined"
+                                color="success"
+                                type="submit"
+                                disabled={
+                                this.state.pasos.length > 1 &&
+                                i < this.state.pasos.length - 1
+                                }
+                                onClick={(e) => this.addStep(e)}
+                            >
+                                +
+                            </Button>
+                            <Button
+                                fullWidth
+                                variant="outlined"
+                                color="error"
+                                type="submit"
+                                disabled={
+                                i < this.state.pasos.length - 1 ||
+                                this.state.pasos.length === 1
+                                }
+                                onClick={(e) => this.removeStep(e)}
+                            >
+                                -
+                            </Button>
+                            </Grid>
+                        </>
+                        );
+                    })}
+                    <Grid item xs={16}>
+                        <Button fullWidth variant="contained" type="submit" onClick={(e) => this.handleSubmit(e)}>
+                        Añadir receta
+                        </Button>
+                    </Grid>
+                    </Grid>
+                </Box>
+            </Modal>
+            <Paper elevation={3} id="Main">
+                <h1 style={{ textAlign: "center" }}>Recetas el tio react</h1>
+                <Divider />
+                <Button
+                variant="outlined"
+                onClick={this.handleOpen}
+                endIcon={<PlaylistAddIcon />}
+                sx={{ float: "right", padding: "2px" }}
+                >
+                Añadir receta
+                </Button>
+                <Divider sx={{ marginTop: "2.45em" }}>Recetas</Divider>
+
+                {/* Pequeño Trucazo para usar el Grid para hacer un pading sin problemas uwu*/}
+
+                <Grid container justifyContent="center">
+
+                    <Grid xs={0.2}>
+                    </Grid>
+
+                    <Grid container spacing={2} xs={11.6}>
+                        {recipes.recipes.map((recipe) => (
+                            <Grid item xs={12} sm={6} md={6} lg={4}>
+                                <CardComponent recipe={recipe}/>
+                            </Grid>
+                        ))}
+                    </Grid>
+
+                    <Grid xs={0.2}>
+                    </Grid>
+
                 </Grid>
-              ))}
-            </Grid>
-          </Paper>
+
+            </Paper>
+            </Container>
+        <Box id="Title">
+            Mowen
+        </Box>
         </Container>
+                    
       </>
     );
   }
