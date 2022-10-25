@@ -50,6 +50,7 @@ class CardComponent extends React.Component {
     image: this.props.recipe.Image,
     ingredientes: this.props.recipe.Ingredients,
     pasos: this.props.recipe.Recipe,
+    recipe: this.props.recipe
   };
 
   handleExpandClick = () => {
@@ -69,11 +70,63 @@ class CardComponent extends React.Component {
     image: this.props.recipe.Image,
     ingredientes: this.props.recipe.Ingredients,
     pasos: this.props.recipe.Recipe,
+    recipe: this.state.recipe
     });
   };
   handleOpen = () => {
     this.setState({ open: true });
   };
+
+  handleFieldChange = (event) => {
+    if (["ingrediente"].includes(event.target.name)) {
+      let ingredientes = [...this.state.ingredientes];
+      ingredientes[event.target.id] = event.target.value;
+      this.setState({ ingredientes });
+    } else if (["paso"].includes(event.target.name)) {
+      let pasos = [...this.state.pasos];
+      pasos[event.target.id] = event.target.value;
+      this.setState({ pasos });
+    } else {
+      this.setState({ [event.target.id]: event.target.value });
+    }
+  };
+  handleSubmit(e) {
+    const months = [
+      "enero",
+      "febrero",
+      "marzo",
+      "abril",
+      "mayo",
+      "junio",
+      "julio",
+      "agosto",
+      "septiembre",
+      "octubre",
+      "noviembre",
+      "diciembre",
+    ];
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth();
+    var yyyy = today.getFullYear();
+
+    today = dd + " de " + months[mm] + " " + yyyy;
+    console.log(this.state);
+    this.setState ( { recipe: {
+      Title: this.state.titulo,
+      Date: today,
+      Description: this.state.descripcion,
+      Image: this.state.image,
+      Ingredients: this.state.ingredientes,
+      Recipe: this.state.pasos,
+    }});
+    this.setState({ 
+      expanded: false,
+    expanded2: false,
+    open: false,
+    pasos: this.props.recipe.Recipe,
+    });
+  }
   addIngredient = (event) => {
     event.preventDefault();
     this.setState({
@@ -101,8 +154,7 @@ class CardComponent extends React.Component {
     this.setState({ pasos });
   };
   render(){
-    const recipe = this.props.recipe;
-    console.log(recipe);
+    var recipe = this.state.recipe
   return (
     <>
     <Card id="Card">
