@@ -39,7 +39,9 @@ const style = {
   p: 4,
 };
 
+
 class CardComponent extends React.Component {
+
   state = {
     expanded: false,
     expanded2: false,
@@ -64,13 +66,12 @@ class CardComponent extends React.Component {
       expanded: false,
     expanded2: false,
     open: false,
-    titulo: this.props.recipe.Title,
-    descripcion: this.props.recipe.Description,
-    fecha: this.props.recipe.Date,
-    image: this.props.recipe.Image,
-    ingredientes: this.props.recipe.Ingredients,
-    pasos: this.props.recipe.Recipe,
-    recipe: this.state.recipe
+    titulo: this.state.recipe.Title,
+    descripcion: this.state.recipe.Description,
+    fecha: this.state.recipe.Date,
+    image: this.state.recipe.Image,
+    ingredientes: this.state.recipe.Ingredients,
+    pasos: this.state.recipe.Recipe,
     });
   };
   handleOpen = () => {
@@ -122,9 +123,8 @@ class CardComponent extends React.Component {
     }});
     this.setState({ 
       expanded: false,
-    expanded2: false,
-    open: false,
-    pasos: this.props.recipe.Recipe,
+      expanded2: false,
+      open: false
     });
   }
   addIngredient = (event) => {
