@@ -45,7 +45,7 @@ class Home extends Component {
     event.preventDefault();
     this.state.recipes.recipes.push({
       Title: this.state.titulo,
-      Date: getDate,
+      Date: getDate(),
       Description: this.state.descripcion,
       Image: this.state.image,
       Ingredients: this.state.ingredientes,

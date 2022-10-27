@@ -23,6 +23,7 @@ import {
 } from "@mui/material";
 import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
+import {getDate, deleteRecipe, fieldChanger, addField, deleteField} from "./utils/forms";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -85,44 +86,15 @@ class CardComponent extends React.Component {
   };
 
   handleFieldChange = (event) => {
-    if (["ingrediente"].includes(event.target.name)) {
-      let ingredientes = [...this.state.ingredientes];
-      ingredientes[event.target.id] = event.target.value;
-      this.setState({ ingredientes });
-    } else if (["paso"].includes(event.target.name)) {
-      let pasos = [...this.state.pasos];
-      pasos[event.target.id] = event.target.value;
-      this.setState({ pasos });
-    } else {
-      this.setState({ [event.target.id]: event.target.value });
-    }
+    event.preventDefault();
+    this.setState(fieldChanger(this.state, event));
   };
-  handleSubmit(e) {
-    const months = [
-      "enero",
-      "febrero",
-      "marzo",
-      "abril",
-      "mayo",
-      "junio",
-      "julio",
-      "agosto",
-      "septiembre",
-      "octubre",
-      "noviembre",
-      "diciembre",
-    ];
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth();
-    var yyyy = today.getFullYear();
-
-    today = dd + " de " + months[mm] + " " + yyyy;
-    console.log(this.state);
+  handleSubmit(event) {
+    event.preventDefault();
     this.setState({
       recipe: {
         Title: this.state.titulo,
-        Date: today,
+        Date: getDate(),
         Description: this.state.descripcion,
         Image: this.state.image,
         Ingredients: this.state.ingredientes,
@@ -137,29 +109,21 @@ class CardComponent extends React.Component {
   }
   addIngredient = (event) => {
     event.preventDefault();
-    this.setState({
-      ingredientes: [...this.state.ingredientes, ""],
-    });
+    this.setState({ ingredientes: addField(this.state.ingredientes) });
   };
 
   removeIngredient = (event) => {
     event.preventDefault();
-    let ingredientes = [...this.state.ingredientes];
-    ingredientes.splice(event.target.id, 1);
-    this.setState({ ingredientes });
+    this.setState({ ingredientes: deleteField(this.state.ingredientes, event) });
   };
 
   addStep = (event) => {
     event.preventDefault();
-    this.setState({
-      pasos: [...this.state.pasos, ""],
-    });
+    this.setState({ pasos: addField(this.state.pasos) });
   };
   removeStep = (event) => {
     event.preventDefault();
-    let pasos = [...this.state.pasos];
-    pasos.splice(event.target.id, 1);
-    this.setState({ pasos });
+    this.setState({ pasos: deleteField(this.state.pasos, event) });
   };
   render() {
     var recipe = this.state.recipe;

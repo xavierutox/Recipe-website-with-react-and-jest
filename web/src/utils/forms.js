@@ -51,6 +51,7 @@ export function getDate(){
       var dd = today.getDate();
       var mm = today.getMonth();
       var yyyy = today.getFullYear();
+      today = dd + " de " + months[mm] + " de " + yyyy;
   
-      return dd + " de " + months[mm] + " " + yyyy;
+      return today;
 }
