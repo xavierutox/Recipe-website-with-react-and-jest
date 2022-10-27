@@ -15,7 +15,14 @@ import CardComponent from "./CardComponent";
 import { recipes } from "./Mocks/recipes.js";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import PlayListRemoveIcon from "@mui/icons-material/PlaylistRemove";
-import {deleteRecipe, fieldChanger, addField, deleteField, getDate} from "./utils/forms.js";
+import {
+  deleteRecipe,
+  fieldChanger,
+  addField,
+  deleteField,
+  getDate,
+  addRecipe,
+} from "./utils/forms.js";
 
 const style = {
   position: "absolute",
@@ -39,24 +46,30 @@ class Home extends Component {
     open2: false,
     ingredientes: [""],
     pasos: [""],
-    recipes : recipes,
+    recipes: [...recipes.recipes],
   };
   handleSubmit(event) {
     event.preventDefault();
-    this.state.recipes.recipes.push({
-      Title: this.state.titulo,
+    var newRecipe = {
+      itle: this.state.titulo,
       Date: getDate(),
       Description: this.state.descripcion,
       Image: this.state.image,
       Ingredients: this.state.ingredientes,
       Recipe: this.state.pasos,
-    });
+    };
+
+    this.setState({ recipes: addRecipe(newRecipe, this.state.recipes) });
     this.handleClose();
   }
 
-  handleDeleteRecipe(e, recipe) {
+  handleDeleteRecipe(e, index) {
     e.preventDefault();
-    this.setState({ open2: false, recipes: deleteRecipe(recipe, recipes) });
+    this.setState({
+      open2: false,
+      recipes: deleteRecipe(index, this.state.recipes),
+    });
+    this.forceUpdate();
   }
 
   handleFieldChange = (event) => {
@@ -71,7 +84,9 @@ class Home extends Component {
 
   removeIngredient = (event) => {
     event.preventDefault();
-    this.setState({ ingredientes: deleteField(this.state.ingredientes, event) });
+    this.setState({
+      ingredientes: deleteField(this.state.ingredientes, event),
+    });
   };
 
   addStep = (event) => {
@@ -314,7 +329,7 @@ class Home extends Component {
                     <Divider />
                   </Grid>
 
-                  {this.state.recipes.recipes.map((recipe, i) => {
+                  {this.state.recipes.map((recipe, index) => {
                     return (
                       <>
                         <Grid item xs={10} justify="center">
@@ -326,7 +341,7 @@ class Home extends Component {
                             variant="outlined"
                             color="error"
                             type="submit"
-                            onClick={(e) => this.handleDeleteRecipe(e, recipe)}
+                            onClick={(e) => this.handleDeleteRecipe(e, index)}
                           >
                             -
                           </Button>
@@ -350,7 +365,7 @@ class Home extends Component {
                 <Grid xs={0.2}></Grid>
 
                 <Grid container spacing={2} xs={11.6}>
-                  {this.state.recipes.recipes.map((recipe) => (
+                  {this.state.recipes.map((recipe) => (
                     <Grid item xs={12} sm={6} md={6} lg={4}>
                       <CardComponent recipe={recipe} />
                     </Grid>
