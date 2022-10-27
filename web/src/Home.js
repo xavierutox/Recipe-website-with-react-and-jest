@@ -155,7 +155,7 @@ class Home extends Component {
         </Box>
         <Container maxWidth id="body" sx={{ minHeight: "60rem" }}>
           <Container>
-            <Box id="Title">Mowen</Box>
+            <Box id="Title"></Box>
             <Modal
               open={open}
               onClose={this.handleClose}
@@ -376,7 +376,6 @@ class Home extends Component {
               </Grid>
             </Paper>
           </Container>
-          <Box id="Title">Mowen</Box>
         </Container>
       </>
     );

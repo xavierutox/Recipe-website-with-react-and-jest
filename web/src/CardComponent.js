@@ -23,7 +23,7 @@ import {
 } from "@mui/material";
 import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
-import {getDate, deleteRecipe, fieldChanger, addField, deleteField} from "./utils/forms";
+import {getDate, fieldChanger, addField, deleteField} from "./utils/forms";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
