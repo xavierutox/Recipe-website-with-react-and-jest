@@ -14,7 +14,8 @@ import {
 import CardComponent from "./CardComponent";
 import { recipes } from "./Mocks/recipes.js";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
-import AddIcon from "@mui/icons-material/Add";
+import PlayListRemoveIcon from "@mui/icons-material/PlaylistRemove";
+import {deleteRecipe, fieldChanger, addField, deleteField, getDate} from "./utils/forms.js";
 
 const style = {
   position: "absolute",
@@ -35,34 +36,16 @@ class Home extends Component {
     fecha: "",
     image: "",
     open: false,
+    open2: false,
     ingredientes: [""],
     pasos: [""],
+    recipes : recipes,
   };
-  handleSubmit(e) {
-    const months = [
-      "enero",
-      "febrero",
-      "marzo",
-      "abril",
-      "mayo",
-      "junio",
-      "julio",
-      "agosto",
-      "septiembre",
-      "octubre",
-      "noviembre",
-      "diciembre",
-    ];
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth();
-    var yyyy = today.getFullYear();
-
-    today = dd + " de " + months[mm] + " " + yyyy;
-    console.log(this.state);
-    recipes.recipes.push({
+  handleSubmit(event) {
+    event.preventDefault();
+    this.state.recipes.recipes.push({
       Title: this.state.titulo,
-      Date: today,
+      Date: getDate,
       Description: this.state.descripcion,
       Image: this.state.image,
       Ingredients: this.state.ingredientes,
@@ -71,48 +54,39 @@ class Home extends Component {
     this.handleClose();
   }
 
+  handleDeleteRecipe(e, recipe) {
+    e.preventDefault();
+    this.setState({ open2: false, recipes: deleteRecipe(recipe, recipes) });
+  }
+
   handleFieldChange = (event) => {
-    if (["ingrediente"].includes(event.target.name)) {
-      let ingredientes = [...this.state.ingredientes];
-      ingredientes[event.target.id] = event.target.value;
-      this.setState({ ingredientes });
-    } else if (["paso"].includes(event.target.name)) {
-      let pasos = [...this.state.pasos];
-      pasos[event.target.id] = event.target.value;
-      this.setState({ pasos });
-    } else {
-      this.setState({ [event.target.id]: event.target.value });
-    }
+    event.preventDefault();
+    this.setState(fieldChanger(this.state, event));
   };
 
   addIngredient = (event) => {
     event.preventDefault();
-    this.setState({
-      ingredientes: [...this.state.ingredientes, ""],
-    });
+    this.setState({ ingredientes: addField(this.state.ingredientes) });
   };
 
   removeIngredient = (event) => {
     event.preventDefault();
-    let ingredientes = [...this.state.ingredientes];
-    ingredientes.splice(event.target.id, 1);
-    this.setState({ ingredientes });
+    this.setState({ ingredientes: deleteField(this.state.ingredientes, event) });
   };
 
   addStep = (event) => {
     event.preventDefault();
-    this.setState({
-      pasos: [...this.state.pasos, ""],
-    });
+    this.setState({ pasos: addField(this.state.pasos) });
   };
   removeStep = (event) => {
     event.preventDefault();
-    let pasos = [...this.state.pasos];
-    pasos.splice(event.target.id, 1);
-    this.setState({ pasos });
+    this.setState({ pasos: deleteField(this.state.pasos, event) });
   };
 
   handleOpen = () => this.setState({ open: true });
+
+  handleOpen2 = () => this.setState({ open2: true });
+
   handleClose = () =>
     this.setState({
       titulo: "",
@@ -124,8 +98,16 @@ class Home extends Component {
       pasos: [""],
     });
 
+  handleClose2 = () =>
+    this.setState({
+      open2: false,
+      ingredientes: [""],
+      pasos: [""],
+    });
+
   render() {
     const open = this.state.open;
+    const open2 = this.state.open2;
     return (
       <>
         <Box
@@ -138,8 +120,22 @@ class Home extends Component {
             position: "fixed",
           }}
         >
+          <Fab color="primary" aria-label="add" onClick={this.handleOpen2}>
+            <PlayListRemoveIcon />
+          </Fab>
+        </Box>
+        <Box
+          sx={{
+            margin: 0,
+            top: "auto",
+            right: 100,
+            bottom: 20,
+            left: "auto",
+            position: "fixed",
+          }}
+        >
           <Fab color="primary" aria-label="add" onClick={this.handleOpen}>
-            <AddIcon />
+            <PlaylistAddIcon />
           </Fab>
         </Box>
         <Container maxWidth id="body" sx={{ minHeight: "60rem" }}>
@@ -298,6 +294,52 @@ class Home extends Component {
                 </Grid>
               </Box>
             </Modal>
+            <Modal
+              open={open2}
+              onClose={this.handleClose2}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  Eliminar receta
+                </Typography>
+                <Grid
+                  container
+                  spacing={2}
+                  justify="center"
+                  sx={{ paddingTop: 2 }}
+                >
+                  <Grid item xs={12}>
+                    <Divider />
+                  </Grid>
+
+                  {this.state.recipes.recipes.map((recipe, i) => {
+                    return (
+                      <>
+                        <Grid item xs={10} justify="center">
+                          <Typography>{recipe.Title}</Typography>
+                        </Grid>
+                        <Grid item xs={2}>
+                          <Button
+                            fullWidth
+                            variant="outlined"
+                            color="error"
+                            type="submit"
+                            onClick={(e) => this.handleDeleteRecipe(e, recipe)}
+                          >
+                            -
+                          </Button>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <Divider />
+                        </Grid>
+                      </>
+                    );
+                  })}
+                </Grid>
+              </Box>
+            </Modal>
             <Paper elevation={3} id="Main">
               <h1 style={{ textAlign: "center" }}>Recetas el tio react</h1>
               <Divider sx={{ marginTop: "2.45em" }}>Recetas</Divider>
@@ -308,7 +350,7 @@ class Home extends Component {
                 <Grid xs={0.2}></Grid>
 
                 <Grid container spacing={2} xs={11.6}>
-                  {recipes.recipes.map((recipe) => (
+                  {this.state.recipes.recipes.map((recipe) => (
                     <Grid item xs={12} sm={6} md={6} lg={4}>
                       <CardComponent recipe={recipe} />
                     </Grid>
