@@ -15,6 +15,7 @@ import CardComponent from "./CardComponent";
 import { recipes } from "./Mocks/recipes.js";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import PlayListRemoveIcon from "@mui/icons-material/PlaylistRemove";
+import { styled} from '@mui/material/styles';
 import {
   deleteRecipe,
   fieldChanger,
@@ -34,7 +35,31 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  mb: 2,
+  display: "flex",
+  flexDirection: "column",
+  height: 560,
+  overflow: "hidden",
+  overflowY: "scroll",
 };
+
+const RecipesTextField = styled(TextField)({
+    '& label.Mui-focused': {
+      color: '#E884A1',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: '#E884A1',
+    },
+
+    '& .MuiOutlinedInput-root': {
+      '&:hover fieldset': {
+        
+        
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#E884A1',
+      },
+    },});
 
 class Home extends Component {
   state = {
@@ -51,7 +76,7 @@ class Home extends Component {
   handleSubmit(event) {
     event.preventDefault();
     var newRecipe = {
-      itle: this.state.titulo,
+      Title: this.state.titulo,
       Date: getDate(),
       Description: this.state.descripcion,
       Image: this.state.image,
@@ -135,7 +160,15 @@ class Home extends Component {
             position: "fixed",
           }}
         >
-          <Fab color="primary" aria-label="add" onClick={this.handleOpen2}>
+          <Fab 
+            aria-label="add" 
+            onClick={this.handleOpen2}
+            sx={{
+                backgroundColor: "#E884A1",
+                "&:hover": {
+                    backgroundColor: "#b94c6c"
+                }
+            }}>
             <PlayListRemoveIcon />
           </Fab>
         </Box>
@@ -149,13 +182,20 @@ class Home extends Component {
             position: "fixed",
           }}
         >
-          <Fab color="primary" aria-label="add" onClick={this.handleOpen}>
-            <PlaylistAddIcon />
+          <Fab 
+            aria-label="add" 
+            onClick={this.handleOpen}     
+            sx={{
+                backgroundColor: "#E884A1",
+                "&:hover": {
+                    backgroundColor: "#b94c6c"
+                }
+            }}>
+                <PlaylistAddIcon />
           </Fab>
         </Box>
-        <Container maxWidth id="body" sx={{ minHeight: "60rem" }}>
+        <Container maxWidth id="body" sx={{ minHeight: "60rem", mt: -3}}>
           <Container>
-            <Box id="Title"></Box>
             <Modal
               open={open}
               onClose={this.handleClose}
@@ -173,7 +213,7 @@ class Home extends Component {
                   sx={{ paddingTop: 2 }}
                 >
                   <Grid item xs={12} justify="center">
-                    <TextField
+                    <RecipesTextField
                       fullWidth
                       id="titulo"
                       label="Titulo"
@@ -183,7 +223,7 @@ class Home extends Component {
                     />
                   </Grid>
                   <Grid item xs={16} justify="center">
-                    <TextField
+                    <RecipesTextField
                       fullWidth
                       id="descripcion"
                       label="Descripcion"
@@ -193,7 +233,7 @@ class Home extends Component {
                     />
                   </Grid>
                   <Grid item xs={16} justify="center">
-                    <TextField
+                    <RecipesTextField
                       fullWidth
                       id="image"
                       label="Imagen"
@@ -209,7 +249,7 @@ class Home extends Component {
                     return (
                       <>
                         <Grid item xs={10} justify="center">
-                          <TextField
+                          <RecipesTextField
                             id={i}
                             name="ingrediente"
                             label="Ingrediente"
@@ -256,7 +296,7 @@ class Home extends Component {
                     return (
                       <>
                         <Grid item xs={10} justify="center">
-                          <TextField
+                          <RecipesTextField
                             id={i}
                             name="paso"
                             label="paso"
@@ -302,6 +342,12 @@ class Home extends Component {
                       variant="contained"
                       type="submit"
                       onClick={(e) => this.handleSubmit(e)}
+                      sx={{
+                        backgroundColor: "#E884A1",
+                        "&:hover": {
+                            backgroundColor: "#b94c6c"
+                        }
+                      }}
                     >
                       Añadir receta
                     </Button>
