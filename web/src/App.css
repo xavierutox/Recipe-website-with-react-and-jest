@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+#body {
+    background-color: #F6E6C9;
+}
+
+#Main {
+    background-color: #FAD59D
+}
+
+#Card {
+    background-color: #BBCD97;
+    color: #ec6930;
+}
