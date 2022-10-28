@@ -46,6 +46,12 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  mb: 2,
+  display: "flex",
+  flexDirection: "column",
+  height: 600,
+  overflow: "hidden",
+  overflowY: "scroll",
 };
 
 class CardComponent extends React.Component {
@@ -184,7 +190,7 @@ class CardComponent extends React.Component {
             <CardContent>
               <Typography paragraph>Ingredientes:</Typography>
               <Typography paragraph>
-                <List sx={{ listStyleType: "disc", pl: 4 }}>
+                <List sx={{ listStyleType: "disc", pl: 4, color: "black"}}>
                   {recipe.Ingredients.map((ingredient) => (
                     <ListItem sx={{ display: "list-item" }}>
                       <ListItemText primary={ingredient} />
@@ -198,7 +204,7 @@ class CardComponent extends React.Component {
             <CardContent>
               <Typography paragraph>Receta:</Typography>
               <Typography paragraph>
-                <List sx={{ listStyleType: "decimal", pl: 4 }}>
+                <List sx={{ listStyleType: "decimal", pl: 4, color: "black" }}>
                   {recipe.Recipe.map((step) => (
                     <ListItem sx={{ display: "list-item" }}>
                       <ListItemText primary={step} />
@@ -353,8 +359,14 @@ class CardComponent extends React.Component {
                   variant="contained"
                   type="submit"
                   onClick={(e) => this.handleSubmit(e)}
+                  sx={{
+                    backgroundColor: "#E884A1",
+                    "&:hover": {
+                        backgroundColor: "#b94c6c"
+                    }
+                  }}
                 >
-                  Añadir receta
+                  Editar receta
                 </Button>
               </Grid>
             </Grid>
